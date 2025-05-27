@@ -1,7 +1,7 @@
 use std::iter::Peekable;
 
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy)]
 pub enum Token {
     Plus,
     Minus,
@@ -10,7 +10,7 @@ pub enum Token {
     IntLit(i32),
 }
 
-pub fn scanfile(content: &str) {
+pub fn scanfile(content: &str) -> Vec<Token> {
     let mut tokens = Vec::new();
     let mut line = 1;
     let mut chars: Peekable<_> = content.chars().peekable();
@@ -67,8 +67,10 @@ pub fn scanfile(content: &str) {
         }
     }
 
-    for t in tokens {
+    for t in &tokens {
         println!("{:?}", t);
     }
+
+    tokens
 }
 

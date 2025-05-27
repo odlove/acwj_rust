@@ -3,6 +3,7 @@ use std::io;
 use std::path::PathBuf;
 
 mod scan;
+mod parser;
 
 
 #[derive(Parser, Debug)]
@@ -18,7 +19,10 @@ fn main() -> io::Result<()> {
 
     let content = std::fs::read_to_string(&cli.input)?;
 
-    scan::scanfile(&content);
+    let tokens = scan::scanfile(&content);
+
+    println!();
+    let ast = parser::parse(tokens);
 
     Ok(())
 }
